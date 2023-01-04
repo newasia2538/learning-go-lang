@@ -19,9 +19,14 @@ func main() {
 	for i, card := range cards {
 		fmt.Println(i, card)
 	}
-
+	fmt.Println("--------------------------------")
+	newDeck := newDeck()
+	newDeck.print()
+	fmt.Println("--------------------------------")
 	deck.print()
+	fmt.Println("--------------------------------")
 	fmt.Println(card)
+
 }
 
 // declare function return string type value

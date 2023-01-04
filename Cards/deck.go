@@ -6,8 +6,23 @@ import "fmt"
 
 type deck []string
 
+func newDeck() deck {
+	deck := deck{}
+
+	cardSuits := []string{"Spades", "Diamonds", "Hearts", "Clubs"}
+	cardValues := []string{"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"}
+
+	for _, suit := range cardSuits {
+		for _, value := range cardValues {
+			deck = append(deck, value+" of "+suit)
+		}
+	}
+
+	return deck
+}
+
 func (d deck) print() {
 	for i, card := range d {
-		fmt.Println(i, card, "From deck type")
+		fmt.Println(i+1, card)
 	}
 }
