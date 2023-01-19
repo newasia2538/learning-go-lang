@@ -22,10 +22,15 @@ func main() {
 	fmt.Println("--------------------------------")
 	newDeck := newDeck()
 	newDeck.print()
+	hand, remainingDeck := deal(newDeck, 5)
 	fmt.Println("--------------------------------")
 	deck.print()
 	fmt.Println("--------------------------------")
 	fmt.Println(card)
+	fmt.Println("--------------------------------")
+	hand.print()
+	fmt.Println("--------------------------------")
+	remainingDeck.print()
 
 }
 
