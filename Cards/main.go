@@ -31,6 +31,8 @@ func main() {
 	hand.print()
 	fmt.Println("--------------------------------")
 	remainingDeck.print()
+	fmt.Println("--------------------------------")
+	fmt.Println(newDeck.toString())
 
 }
 
