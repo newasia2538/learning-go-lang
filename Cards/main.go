@@ -5,6 +5,6 @@ var c string
 
 func main() {
 	// declare variable and initialize value
-	deck := newDeck()
-	deck.saveToFile("my-cards")
+	deck := newDeckFromFile("my-cards")
+	deck.print()
 }
