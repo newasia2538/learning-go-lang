@@ -1,17 +1,18 @@
-package main
+package cards
 
 import (
 	"fmt"
-	"io/ioutil"
 	"os"
 	"strings"
 )
 
-// Create a new type of 'deck' which is a slice of strings
-
 type deck []string
 
-func newDeck() deck {
+func HelloCards() {
+	fmt.Println("Hello Card package")
+}
+
+func NewDeck() deck {
 	deck := deck{}
 
 	cardSuits := []string{"Spades", "Diamonds", "Hearts", "Clubs"}
@@ -26,26 +27,26 @@ func newDeck() deck {
 	return deck
 }
 
-func (d deck) print() {
+func (d deck) Print() {
 	for i, card := range d {
 		fmt.Println(i+1, card)
 	}
 }
 
-func deal(d deck, handSize int) (deck, deck) {
+func Deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
 }
 
-func (d deck) toString() string {
+func (d deck) ToString() string {
 	return strings.Join([]string(d), ", ")
 }
 
-func (d deck) saveToFile(fileName string) error {
-	return ioutil.WriteFile(fileName, []byte(d.toString()), 0666)
+func (d deck) SaveToFile(fileName string) error {
+	return os.WriteFile(fileName, []byte(d.ToString()), 0666)
 }
 
-func newDeckFromFile(fileName string) deck {
-	bs, err := ioutil.ReadFile(fileName)
+func NewDeckFromFile(fileName string) deck {
+	bs, err := os.ReadFile(fileName)
 
 	if err != nil {
 		errorLog(fmt.Sprintf("ERROR : %s", err))
@@ -56,7 +57,7 @@ func newDeckFromFile(fileName string) deck {
 }
 
 func writeLog(filePath string, logMsg string) {
-	ioutil.WriteFile(filePath, []byte(logMsg), 0666)
+	os.WriteFile(filePath, []byte(logMsg), 0666)
 }
 
 func errorLog(logMsg string) {
