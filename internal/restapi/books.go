@@ -1,4 +1,4 @@
-package rest_api
+package restapi
 
 import (
 	"fmt"
@@ -6,10 +6,15 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/newasia2538/learning-go-lang/internal/middleware"
+
+	jwtware "github.com/gofiber/contrib/jwt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/swagger"
 	"github.com/gofiber/template/html/v2"
 	"github.com/joho/godotenv"
+	_ "github.com/newasia2538/learning-go-lang/docs"
 )
 
 type Book struct {
@@ -42,6 +47,18 @@ func InitializeBooksAPI() {
 
 	fmt.Println(books)
 
+	app.Get("/swagger/*", swagger.HandlerDefault) // default
+
+	app.Post("/login", login)
+
+	app.Use(jwtware.New(jwtware.Config{
+		SigningKey: jwtware.SigningKey{
+			Key: []byte(os.Getenv("JWT_SECRET")),
+		},
+	}))
+
+	app.Use(middleware.CheckMiddleware)
+
 	app.Get("/", getHTML)
 	app.Get("/api/config", getAPIConfig)
 	app.Get("/books", getBooks)
@@ -54,6 +71,15 @@ func InitializeBooksAPI() {
 	app.Listen(":8181")
 }
 
+// GetBook godoc
+// @Summary      get list of all books
+// @Description  get list of books
+// @Tags         books
+// @Accept       json
+// @Produce      json
+// @security	 ApiKeyAuth
+// @Success      200  {array}  Book
+// @Router       /books [get]
 func getBooks(c *fiber.Ctx) error {
 	return c.JSON(books)
 }
